@@ -10,6 +10,9 @@ class BloggersViewModel: BloggersViewModelProtocol {
     private var allComments: [Comment] = []
     private var allPosts: [Post] = []
     private var allUsers: [User] = []
+    private var userModels: [UserData] = []
+    private var postsCommentsDictionary: [Int: [Comment]] = [:]
+    private var userCommentsDictionary: [Int: [Comment]] = [:]
     
     init(api: Servicable = Service()) {
         self.api = api
@@ -21,9 +24,9 @@ class BloggersViewModel: BloggersViewModelProtocol {
         fetchUsers()
         
         dispatchGroup.notify(queue: .main) {
-            print(self.allComments)
-            print(self.allPosts)
-            print(self.allUsers)
+            self.createPostCommentsDictionary()
+            self.createUserCommentsDictionary()
+            self.createUserModel()
         }
     }
     
@@ -70,5 +73,45 @@ class BloggersViewModel: BloggersViewModelProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func createPostCommentsDictionary() {
+        for comment in allComments {
+            if postsCommentsDictionary[comment.postId] != nil {
+                postsCommentsDictionary[comment.postId]?.append(comment)
+            } else {
+                postsCommentsDictionary[comment.postId] = [comment]
+            }
+        }
+    }
+    
+    private func createUserCommentsDictionary() {
+        for post in allPosts {
+            let commentsSpecificToPosts = postsCommentsDictionary[post.id]
+            if userCommentsDictionary[post.userId] != nil {
+                if let comments = commentsSpecificToPosts {
+                    userCommentsDictionary[post.userId]?.append(contentsOf: comments)
+                }
+            } else {
+                userCommentsDictionary[post.userId] = commentsSpecificToPosts
+            }
+        }
+    }
+    
+    private func createUserModel() {
+        for user in allUsers {
+            let userPosts = allPosts.filter {$0.userId == user.id }
+            let numberOfCommentsOnUserPosts = userCommentsDictionary[user.id]
+            
+            var averageComments: Double = 0
+            if let userPostsComments = numberOfCommentsOnUserPosts {
+                averageComments = Double(userPostsComments.count) / Double(userPosts.count)
+            }
+            
+            userModels.append(UserData(id: user.id, name: user.name, engagementAverage: averageComments ))
+        }
+        
+        let sortedUsers = userModels.sorted(by: { $0.engagementAverage ?? 0 > $1.engagementAverage ?? 0 })
+        print(sortedUsers.prefix(3))
     }
 }
