@@ -20,6 +20,9 @@
 		9F6EC6F724FA338700CD6F83 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F6EC6F624FA338700CD6F83 /* users.json */; };
 		9F6EC6FA24FA33C100CD6F83 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EC6F924FA33C100CD6F83 /* Resource.swift */; };
 		9F6EC6FC24FA340800CD6F83 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EC6FB24FA340800CD6F83 /* Service.swift */; };
+		9F6EC70124FA424100CD6F83 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EC70024FA424100CD6F83 /* User.swift */; };
+		9F6EC70324FA426000CD6F83 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EC70224FA426000CD6F83 /* Comment.swift */; };
+		9F6EC70524FA426700CD6F83 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EC70424FA426700CD6F83 /* Post.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,9 @@
 		9F6EC6F624FA338700CD6F83 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
 		9F6EC6F924FA33C100CD6F83 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		9F6EC6FB24FA340800CD6F83 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		9F6EC70024FA424100CD6F83 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9F6EC70224FA426000CD6F83 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		9F6EC70424FA426700CD6F83 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +185,9 @@
 		9F6EC6FF24FA364C00CD6F83 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F6EC70024FA424100CD6F83 /* User.swift */,
+				9F6EC70224FA426000CD6F83 /* Comment.swift */,
+				9F6EC70424FA426700CD6F83 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -319,6 +328,9 @@
 			files = (
 				9F6EC6C624FA335E00CD6F83 /* ViewController.swift in Sources */,
 				9F6EC6FA24FA33C100CD6F83 /* Resource.swift in Sources */,
+				9F6EC70124FA424100CD6F83 /* User.swift in Sources */,
+				9F6EC70524FA426700CD6F83 /* Post.swift in Sources */,
+				9F6EC70324FA426000CD6F83 /* Comment.swift in Sources */,
 				9F6EC6FC24FA340800CD6F83 /* Service.swift in Sources */,
 				9F6EC6C224FA335E00CD6F83 /* AppDelegate.swift in Sources */,
 				9F6EC6C424FA335E00CD6F83 /* SceneDelegate.swift in Sources */,
