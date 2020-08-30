@@ -2,6 +2,13 @@ import Foundation
 
 protocol BloggersViewModelProtocol {
     func fetchData()
+    var numberOfRows: Int { get }
+    func getCellLabelText(for index: Int) -> String
+    var delegate: BloggersViewModelDelegate? { get set }
+}
+
+protocol BloggersViewModelDelegate: class {
+    func didCreateUserModels()
 }
 
 class BloggersViewModel: BloggersViewModelProtocol {
@@ -13,6 +20,8 @@ class BloggersViewModel: BloggersViewModelProtocol {
     private var userModels: [UserData] = []
     private var postsCommentsDictionary: [Int: [Comment]] = [:]
     private var userCommentsDictionary: [Int: [Comment]] = [:]
+    weak var delegate: BloggersViewModelDelegate?
+    let numberOfRows = 3
     
     init(api: Servicable = Service()) {
         self.api = api
@@ -29,6 +38,14 @@ class BloggersViewModel: BloggersViewModelProtocol {
             self.createUserModel()
         }
     }
+    
+    func getCellLabelText(for index: Int) -> String {
+        guard index < userModels.count else { return "" }
+        let user = userModels[index]
+        return "\(user.name) - \(user.id), Score: \(user.engagementAverage ?? 0)"
+    }
+    
+    // MARK: - Private methods
     
     private func fetchComments() {
         dispatchGroup.enter()
@@ -110,8 +127,7 @@ class BloggersViewModel: BloggersViewModelProtocol {
             
             userModels.append(UserData(id: user.id, name: user.name, engagementAverage: averageComments ))
         }
-        
-        let sortedUsers = userModels.sorted(by: { $0.engagementAverage ?? 0 > $1.engagementAverage ?? 0 })
-        print(sortedUsers.prefix(3))
+        userModels = userModels.sorted(by: { $0.engagementAverage ?? 0 > $1.engagementAverage ?? 0 })
+        delegate?.didCreateUserModels()
     }
 }
